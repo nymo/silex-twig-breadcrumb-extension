@@ -30,6 +30,10 @@ class BreadCrumbExtension extends \Twig_Extension
         if(isset($app['breadcrumbs.separator'])){
            $this->separator = $app['breadcrumbs.separator'];
         }
+        //create loader to load base template which can be overridden by user
+        $loader = new \Twig_Loader_Filesystem(__DIR__.'/../../Resources/Views');
+        //add loader
+        $this->app['twig.loader']->addLoader($loader);
     }
 
     /**
@@ -45,7 +49,7 @@ class BreadCrumbExtension extends \Twig_Extension
     public function renderBreadCrumbs()
     {
 
-        return $this->app['twig']->render('/../../Resources/Views/breadcrumbs.html.twig', array(
+        return $this->app['twig']->render('breadcrumbs.html.twig', array(
             'breadcrumbs' => $this->app['breadcrumbs']->getItems(),
                 'separator' => $this->separator
             ));
