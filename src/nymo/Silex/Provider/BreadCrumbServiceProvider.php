@@ -27,7 +27,7 @@ class BreadCrumbServiceProvider implements ServiceProviderInterface
      */
     public function register(Application $app)
     {
-        $app['breadCrumbs'] = BreadCrumbCollection::getInstance();
+        $app['breadcrumbs'] = BreadCrumbCollection::getInstance();
     }
 
     /**
