@@ -1,13 +1,18 @@
 <?php
 /**
- * Created by JetBrains PhpStorm.
- * User: g_panek
- * Date: 07.01.13
- * Time: 16:45
+ * This file is part of silex-twig-breadcrumb-extension
+ *
+ * (c) 2014 Gregor Panek
  */
 namespace nymo\Resources\Library;
 
-class BreadCrumbCollection {
+/**
+ * Class BreadCrumbCollection
+ * @package nymo\Resources\Library
+ * @author Gregor Panek <gp@gregorpanek.de>
+ */
+class BreadCrumbCollection
+{
 
     /**
      * @var null|BreadCrumbCollection
@@ -22,42 +27,46 @@ class BreadCrumbCollection {
     /**
      * Singelton
      */
-    protected  function __construct(){}
+    protected function __construct()
+    {
+    }
 
     /**
      * Singelton
      */
-    protected function __clone(){}
+    protected function __clone()
+    {
+    }
 
     /**
      * Create a Singelton collection class
      * @return BreadCrumbCollection
      */
-    public static function getInstance(){
-        if(self::$bcCollection === null){
+    public static function getInstance()
+    {
+        if (self::$bcCollection === null) {
             self::$bcCollection = new self();
         }
         return self::$bcCollection;
     }
 
     /**
-     * Add new BreadCrumb item
+     * Add new breadcrumb item
      * @param string $linkName
      * @param string $target
      * @return void
      */
-    public function addItem($linkName,$target){
-       $this->items[] = array("linkName"=>$linkName,"target"=>$target);
+    public function addItem($linkName, $target)
+    {
+        $this->items[] = array("linkName" => $linkName, "target" => $target);
     }
 
     /**
      * Return all BreadCrumbs
      * @return array
      */
-    public function getItems(){
+    public function getItems()
+    {
         return $this->items;
     }
-
-
-
 }

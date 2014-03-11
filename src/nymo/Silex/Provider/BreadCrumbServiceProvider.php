@@ -1,18 +1,22 @@
 <?php
 /**
- * Created by JetBrains PhpStorm.
- * User: g_panek
- * Date: 07.01.13
- * Time: 16:38
+ * This file is part of silex-twig-breadcrumb-extension
+ *
+ * (c) 2014 Gregor Panek
  */
-
 namespace nymo\Silex\Provider;
 
 use Silex\ServiceProviderInterface;
 use Silex\Application;
 use nymo\Resources\Library\BreadCrumbCollection;
 
-class BreadCrumbServiceProvider implements ServiceProviderInterface{
+/**
+ * Class BreadCrumbServiceProvider
+ * @package nymo\Silex\Provider
+ * @author Gregor Panek <gp@gregorpanek.de>
+ */
+class BreadCrumbServiceProvider implements ServiceProviderInterface
+{
     /**
      * Registers services on the given app.
      *

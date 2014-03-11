@@ -1,12 +1,18 @@
 <?php
 /**
- * Created by JetBrains PhpStorm.
- * User: g_panek
- * Date: 19.11.12
- * Time: 16:41
+ * This file is part of silex-twig-breadcrumb-extension
+ *
+ * (c) 2014 Gregor Panek
  */
 namespace nymo\Twig\Extension;
+
 use Silex\Application;
+
+/**
+ * Class BreadCrumbExtension
+ * @package nymo\Twig\Extension
+ * @author Gregor Panek <gp@gregorpanek.de>
+ */
 class BreadCrumbExtension extends \Twig_Extension
 {
 
@@ -27,11 +33,11 @@ class BreadCrumbExtension extends \Twig_Extension
     {
         $this->app = $app;
         //set options
-        if(isset($app['breadcrumbs.separator'])){
-           $this->separator = $app['breadcrumbs.separator'];
+        if (isset($app['breadcrumbs.separator'])) {
+            $this->separator = $app['breadcrumbs.separator'];
         }
         //create loader to load base template which can be overridden by user
-        $loader = new \Twig_Loader_Filesystem(__DIR__.'/../../Resources/Views');
+        $loader = new \Twig_Loader_Filesystem(__DIR__ . '/../../Resources/Views');
         //add loader
         $this->app['twig.loader']->addLoader($loader);
     }
@@ -42,17 +48,24 @@ class BreadCrumbExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            'renderBreadCrumbs' => new \Twig_Function_Method($this, 'renderBreadCrumbs',array('is_safe'=>array('html')))
+            'renderBreadCrumbs' => new \Twig_Function_Method($this, 'renderBreadCrumbs', array('is_safe' => array('html')))
         );
     }
 
+    /**
+     * Returns the rendered breadcrumb template
+     * @return string
+     */
     public function renderBreadCrumbs()
     {
 
-        return $this->app['twig']->render('breadcrumbs.html.twig', array(
-            'breadcrumbs' => $this->app['breadcrumbs']->getItems(),
+        return $this->app['twig']->render(
+            'breadcrumbs.html.twig',
+            array(
+                'breadcrumbs' => $this->app['breadcrumbs']->getItems(),
                 'separator' => $this->separator
-            ));
+            )
+        );
 
     }
 
