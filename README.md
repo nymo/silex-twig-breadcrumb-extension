@@ -13,7 +13,7 @@ First add the following to your composer.json file:
 
 ```
 "require":{
-        "nymo/silex-twig-breadcrumb-extension":"v1.0.*"
+        "nymo/silex-twig-breadcrumb-extension":"~1.0"
     }
 ```
 
