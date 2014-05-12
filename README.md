@@ -27,9 +27,16 @@ $app->register(new \nymo\Silex\Provider\BreadCrumbServiceProvider());
 ```
 Then register the Twig breadcrumb extension. You have to define this after your registered the Twig service provider
 otherwise the application throws an error if you use $app['twig'].
-
 ```
-$app['twig']->addExtension(new \nymo\Twig\Extension\BreadCrumbExtension($app));
+$app['twig'] = $app->share(
+    $app->extend(
+        'twig',
+        function ($twig, $app) {
+            $twig->addExtension(new \nymo\Twig\Extension\BreadCrumbExtension($app));
+            return $twig;
+        }
+    )
+);
 ```
 
 That's all. Now you ready to go.
