@@ -7,6 +7,7 @@ of breadcrumbs in Silex.
 - i18n support
 - Configurable separator
 - Template override
+- Named route support
 
 ## Requirements
 - Silex
@@ -68,6 +69,41 @@ You can also add an breadcrumb item without any url. Then this breadcrumb item w
 $app['breadcrumbs']->addItem('Just some text');
 ```
 
+### Named Routes
+You can also use named routes. This extension supports two types of named routes a simple and a complex one with parameters.
+Before you start to add a named route you will have to register (if not done already) the Silex UrlGeneratorServiceProvider.
+
+```
+$app->register(new Silex\Provider\UrlGeneratorServiceProvider());
+```
+
+Then add this url generator to the breadcrumbs collection.
+```
+$app['breadcrumbs']->setUrlGenerator($app['url_generator']);
+```
+Now you're ready to go.
+
+#### Simple named route
+If you got a simple route without any required parameters you can add this route to the breadcrumb collection as follows:
+
+```
+$app['breadcrumbs']->addItem('A simple route',array('route' => 'simple_named_route'));
+```
+#### Complex named route
+A complex named route is being added the same way as a simple named route. What needs to be done additionally is to pass
+an array with the required parameters as a second value to the array.
+
+```
+$app['breadcrumbs']->addItem('A complex route',array(
+        'route' => 'complex_named_route',
+        'params' => array(
+            'name' => "John",
+            'id' => 3
+        )
+    ));
+```
+
+#### Rendering breadcrumbs in twig
 
 In your Twig template you can render your breadcrumbs with this function:
 ```
@@ -86,5 +122,5 @@ for the breadcrumbs is a > sign.
 If you want to change it you can pass your own separator when registering the Twig extension:
 
 ```
-$app['twig']->addExtension(new \nymo\Twig\Extension\BreadCrumbExtension($app),array("breadcrumb.separator" => "::"));
+$app['twig']->addExtension(new \nymo\Twig\Extension\BreadCrumbExtension($app),array("breadcrumbs.separator" => "::"));
 ```

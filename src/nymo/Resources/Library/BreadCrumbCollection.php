@@ -25,6 +25,11 @@ class BreadCrumbCollection
     protected $items = array();
 
     /**
+     * @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface $generator
+     */
+    protected $urlGen;
+
+    /**
      * Singelton
      */
     protected function __construct()
@@ -47,17 +52,24 @@ class BreadCrumbCollection
         if (self::$bcCollection === null) {
             self::$bcCollection = new self();
         }
+
         return self::$bcCollection;
     }
 
     /**
      * Add new breadcrumb item
      * @param string $linkName
-     * @param string|null $target
+     * @param string|array|null $target
      * @return void
      */
-    public function addItem($linkName, $target=null)
+    public function addItem($linkName, $target = null)
     {
+        if (is_array($target)) {
+            $target = isset($target['params']) ? $this->urlGen->generate(
+                $target['route'],
+                $target['params']
+            ) : $this->urlGen->generate($target['route']);
+        }
         $this->items[] = array("linkName" => $linkName, "target" => $target);
     }
 
@@ -68,5 +80,14 @@ class BreadCrumbCollection
     public function getItems()
     {
         return $this->items;
+    }
+
+    /**
+     * @param \Symfony\Component\Routing\Generator\UrlGeneratorInterface $generator
+     * @return void
+     */
+    public function setUrlGenerator(\Symfony\Component\Routing\Generator\UrlGeneratorInterface $generator)
+    {
+        $this->urlGen = $generator;
     }
 }
