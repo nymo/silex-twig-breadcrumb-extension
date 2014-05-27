@@ -3,7 +3,7 @@ This is a breadcrumb extension for Twig which includes a breadcrumb service prov
 of breadcrumbs in Silex.
 
 ## Features
-- Create easyly breadcrumbs in your Silex application
+- Create easily breadcrumbs in your Silex application
 - i18n support
 - Configurable separator
 - Template override
