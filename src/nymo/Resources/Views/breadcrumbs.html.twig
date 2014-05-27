@@ -2,13 +2,15 @@
     {% for breadcrumb in breadcrumbs %}
         {% if loop.last %}
             <li class="lastItem">
-                {{ breadcrumb.linkName }}
-            </li>
         {% else %}
             <li>
-                <a href="{{ breadcrumb.target }}">{{ breadcrumb.linkName }}</a>
-            </li>
-            {{ separator }}
         {% endif %}
+        {% if breadcrumb.target is null or loop.last %}
+            {{ breadcrumb.linkName|trans }}
+        {% else %}
+            <a href="{{ breadcrumb.target }}">{{ breadcrumb.linkName|trans }}</a>
+        {% endif %}
+        {{ separator }}
+        </li>
     {% endfor %}
 </ul>

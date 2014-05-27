@@ -53,10 +53,10 @@ class BreadCrumbCollection
     /**
      * Add new breadcrumb item
      * @param string $linkName
-     * @param string $target
+     * @param string|null $target
      * @return void
      */
-    public function addItem($linkName, $target)
+    public function addItem($linkName, $target=null)
     {
         $this->items[] = array("linkName" => $linkName, "target" => $target);
     }
