@@ -6,8 +6,8 @@
  */
 namespace nymo\Silex\Provider;
 
-use Silex\ServiceProviderInterface;
-use Silex\Application;
+use Pimple\Container;
+use Pimple\ServiceProviderInterface;
 use nymo\Resources\Library\BreadCrumbCollection;
 
 /**
@@ -23,23 +23,10 @@ class BreadCrumbServiceProvider implements ServiceProviderInterface
      * This method should only be used to configure services and parameters.
      * It should not get services.
      *
-     * @param Application $app An Application instance
+     * @param Container $container A Container instance
      */
-    public function register(Application $app)
+    public function register(Container $container)
     {
-        $app['breadcrumbs'] = BreadCrumbCollection::getInstance();
+        $container['breadcrumbs'] = BreadCrumbCollection::getInstance();
     }
-
-    /**
-     * Bootstraps the application.
-     *
-     * This method is called after all services are registers
-     * and should be used for "dynamic" configuration (whenever
-     * a service must be requested).
-     */
-    public function boot(Application $app)
-    {
-
-    }
-
 }
