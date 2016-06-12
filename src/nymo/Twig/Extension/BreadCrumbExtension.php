@@ -6,7 +6,7 @@
  */
 namespace nymo\Twig\Extension;
 
-use Silex\Application;
+use Pimple\Container;
 
 /**
  * Class BreadCrumbExtension
@@ -15,9 +15,8 @@ use Silex\Application;
  */
 class BreadCrumbExtension extends \Twig_Extension
 {
-
     /**
-     * @var Application
+     * @var Container
      */
     protected $app;
 
@@ -27,9 +26,9 @@ class BreadCrumbExtension extends \Twig_Extension
     protected $separator = '>';
 
     /**
-     * @param \Silex\Application $app
+     * @param Container $app
      */
-    public function __construct(Application $app)
+    public function __construct(Container $app)
     {
         $this->app = $app;
         //set options
@@ -78,6 +77,4 @@ class BreadCrumbExtension extends \Twig_Extension
     {
         return 'renderBreadCrumbs';
     }
-
-
 }
