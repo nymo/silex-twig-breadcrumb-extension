@@ -10,7 +10,8 @@ of breadcrumbs in Silex.
 - Named route support
 
 ## Requirements
-- Silex
+- Silex 1.x or 2.x
+- PHP 5.3 or 5.5.9 (depends on plugin version see above)
 - Twig
 - gettext must be activated in your PHP environment for i8n support since version 1.1.0
 
@@ -22,11 +23,19 @@ Please make sure that gettext functionality is activated in your PHP environment
 to the official PHP Manual http://www.php.net
 
 ### Via composer:
-First add the following to your composer.json file:
-
+First add the following to your composer.json file
 ```
 "require":{
-        "nymo/silex-twig-breadcrumb-extension":"~1.1"
+        "nymo/silex-twig-breadcrumb-extension":"~2.0"
+    }
+```
+
+Use Version 1.2 and lower for Silex 1. Version 1 requires PHP 5.5.9 at least. So use Version 1.2 and lower when you're using an older version of PHP.
+
+#### Silex 1.x
+```
+"require":{
+        "nymo/silex-twig-breadcrumb-extension":"~1.2"
     }
 ```
 
