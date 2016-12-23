@@ -47,7 +47,7 @@ class BreadCrumbExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            'renderBreadCrumbs' => new \Twig_Function_Method($this, 'renderBreadCrumbs', array('is_safe' => array('html')))
+            'renderBreadCrumbs' => new \Twig_SimpleFunction('renderBreadCrumbs', [$this, 'renderBreadCrumbs'], ['is_safe' => ['html']] )
         );
     }
 
