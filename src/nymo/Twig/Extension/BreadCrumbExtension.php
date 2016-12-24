@@ -46,9 +46,13 @@ class BreadCrumbExtension extends \Twig_Extension
      */
     public function getFunctions()
     {
-        return array(
-            'renderBreadCrumbs' => new \Twig_SimpleFunction('renderBreadCrumbs', [$this, 'renderBreadCrumbs'], ['is_safe' => ['html']] )
-        );
+        return [
+            'renderBreadCrumbs' => new \Twig_SimpleFunction(
+                'renderBreadCrumbs',
+                [$this, 'renderBreadCrumbs'],
+                ['is_safe' => ['html']]
+            )
+        ];
     }
 
     /**
@@ -60,12 +64,11 @@ class BreadCrumbExtension extends \Twig_Extension
 
         return $this->app['twig']->render(
             'breadcrumbs.html.twig',
-            array(
+            [
                 'breadcrumbs' => $this->app['breadcrumbs']->getItems(),
                 'separator' => $this->separator
-            )
+            ]
         );
-
     }
 
     /**

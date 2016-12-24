@@ -22,7 +22,7 @@ class BreadCrumbCollection
     /**
      * @var array
      */
-    protected $items = array();
+    protected $items = [];
 
     /**
      * @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface $generator
@@ -70,7 +70,7 @@ class BreadCrumbCollection
                 $target['params']
             ) : $this->urlGen->generate($target['route']);
         }
-        $this->items[] = array("linkName" => $linkName, "target" => $target);
+        $this->items[] = ["linkName" => $linkName, "target" => $target];
     }
 
     /**
