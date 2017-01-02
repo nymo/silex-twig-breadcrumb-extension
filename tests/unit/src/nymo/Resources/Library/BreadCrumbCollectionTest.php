@@ -32,9 +32,6 @@ class BreadCrumbCollectionTest extends TestCase
         $this->assertInstanceOf(BreadCrumbCollection::class, $breadCrumbColl);
     }
 
-    /**
-     * @covers BreadCrumbCollection::getItems()
-     */
     public function testAddItem()
     {
 
