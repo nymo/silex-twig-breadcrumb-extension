@@ -23,7 +23,7 @@
   </testsuites>
 
   <logging>
-    <log type="coverage-html" target="report" lowUpperBound="35"
+    <log type="coverage-html" target="tests/report" lowUpperBound="35"
        highLowerBound="70"/>
   </logging>
 </phpunit>

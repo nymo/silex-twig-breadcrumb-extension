@@ -41,6 +41,7 @@ class BreadCrumbCollection
 
     /**
      * Singelton
+     *
      */
     protected function __clone()
     {
