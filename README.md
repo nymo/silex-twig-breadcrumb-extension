@@ -3,7 +3,9 @@ This is a breadcrumb extension for Twig which includes a breadcrumb service prov
 of breadcrumbs in Silex.
 
 [![Packagist](https://img.shields.io/packagist/v/nymo/silex-twig-breadcrumb-extension.svg)](https://packagist.org/packages/nymo/silex-twig-breadcrumb-extension)
+[![Monthly Downloads](https://poser.pugx.org/phpunit/phpunit/d/monthly)](https://packagist.org/packages/nymo/silex-twig-breadcrumb-extension)
 [![Build Status](https://travis-ci.org/nymo/silex-twig-breadcrumb-extension.svg?branch=master)](https://travis-ci.org/nymo/silex-twig-breadcrumb-extension)
+
 ## Features
 - Create easily breadcrumbs in your Silex application
 - i18n support
