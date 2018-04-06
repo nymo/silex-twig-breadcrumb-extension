@@ -9,8 +9,8 @@
             {{ breadcrumb.linkName|trans }}
         {% else %}
             <a href="{{ breadcrumb.target }}">{{ breadcrumb.linkName|trans }}</a>
+            {{ separator }}
         {% endif %}
-        {{ separator }}
         </li>
     {% endfor %}
 </ul>
