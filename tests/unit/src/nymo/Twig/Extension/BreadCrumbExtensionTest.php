@@ -11,6 +11,10 @@ namespace nymo\Twig\Extension;
 
 use PHPUnit\Framework\TestCase;
 use nymo\Resources\Library\BreadCrumbCollection;
+use Pimple\Container;
+use Silex\Provider\LocaleServiceProvider;
+use Silex\Provider\TranslationServiceProvider;
+use Silex\Provider\TwigServiceProvider;
 
 /**
  * Testcases for the BreadCrumbExtension class
@@ -35,16 +39,16 @@ class BreadCrumbExtensionTest extends TestCase
     public function setUp()
     {
         $viewPath = __DIR__.'/../../../../../../src/nymo/Views';
-        $this->app = new \Pimple\Container();
+        $this->app = new Container();
         $this->app['charset'] = 'utf-8';
         $this->app['debug'] = false;
         //change default separator
         $this->app['breadcrumbs.separator'] = '...:::...';
-        $this->app->register(new \Silex\Provider\LocaleServiceProvider());
-        $this->app->register(new \Silex\Provider\TranslationServiceProvider(), array(
+        $this->app->register(new LocaleServiceProvider());
+        $this->app->register(new TranslationServiceProvider(), array(
             'locale_fallbacks' => array('en'),
         ));
-        $this->app->register(new \Silex\Provider\TwigServiceProvider(), array('twig.path' => $viewPath));
+        $this->app->register(new TwigServiceProvider(), array('twig.path' => $viewPath));
 
         $this->app['twig.loader'] = new \Twig_Loader_Chain();
         $this->extension = new BreadCrumbExtension($this->app);
@@ -58,18 +62,32 @@ class BreadCrumbExtensionTest extends TestCase
 
     public function testRenderBreadCrumbs()
     {
-        $breadcrumbs = BreadCrumbCollection::getInstance();
-        $breadcrumbs->addItem('Amazon', 'www.amazon.de');
-        $breadcrumbs->addItem('Something', 'www.isThere.com');
-        $this->app['breadcrumbs'] = $breadcrumbs;
+        $htmlBreadcrumbs = $this->createBreadCrumbs();
 
-        $htmlBreadcrumbs = $this->extension->renderBreadCrumbs();
         $this->assertRegExp('/<a href="www.amazon.de">Amazon<\/a>/', $htmlBreadcrumbs);
         $this->assertRegExp('/...:::.../', $htmlBreadcrumbs);
+    }
+
+    public function testDontEndWithSeparator()
+    {
+        $htmlBreadcrumbs = $this->createBreadCrumbs();
+        preg_match_all('/...:::.../', $htmlBreadcrumbs, $counted);
+
+        $this->assertCount(3, current($counted));
     }
 
     public function testGetName()
     {
         $this->assertEquals('renderBreadCrumbs', $this->extension->getName());
+    }
+
+    protected function createBreadCrumbs()
+    {
+        $breadcrumbs = BreadCrumbCollection::getInstance();
+        $breadcrumbs->addItem('Amazon', 'www.amazon.de');
+        $breadcrumbs->addItem('Something', 'www.isThere.com');
+        $this->app['breadcrumbs'] = $breadcrumbs;
+
+        return $this->extension->renderBreadCrumbs();
     }
 }
