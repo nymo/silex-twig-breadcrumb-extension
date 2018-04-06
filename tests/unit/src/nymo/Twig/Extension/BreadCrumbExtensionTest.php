@@ -35,7 +35,6 @@ class BreadCrumbExtensionTest extends TestCase
      */
     protected $app;
 
-
     public function setUp()
     {
         $viewPath = __DIR__.'/../../../../../../src/nymo/Views';
@@ -62,18 +61,11 @@ class BreadCrumbExtensionTest extends TestCase
 
     public function testRenderBreadCrumbs()
     {
-        $htmlBreadcrumbs = $this->createBreadCrumbs();
-
-        $this->assertRegExp('/<a href="www.amazon.de">Amazon<\/a>/', $htmlBreadcrumbs);
-        $this->assertRegExp('/...:::.../', $htmlBreadcrumbs);
-    }
-
-    public function testDontEndWithSeparator()
-    {
-        $htmlBreadcrumbs = $this->createBreadCrumbs();
-        preg_match_all('/...:::.../', $htmlBreadcrumbs, $counted);
-
-        $this->assertCount(3, current($counted));
+        $breadCrumbs = $this->createBreadCrumbs();
+        var_dump($breadCrumbs);
+        preg_match_all('/...:::.../', $breadCrumbs, $counted);
+        $this->assertCount(1, current($counted));
+        $this->assertRegExp('/<a href="www.amazon.de">Amazon<\/a>/', $breadCrumbs);
     }
 
     public function testGetName()
@@ -81,12 +73,16 @@ class BreadCrumbExtensionTest extends TestCase
         $this->assertEquals('renderBreadCrumbs', $this->extension->getName());
     }
 
+    /**
+     * Creates Breadcrumbs, renders them and saves the rendered file to a string
+     * @return string
+     */
     protected function createBreadCrumbs()
     {
-        $breadcrumbs = BreadCrumbCollection::getInstance();
-        $breadcrumbs->addItem('Amazon', 'www.amazon.de');
-        $breadcrumbs->addItem('Something', 'www.isThere.com');
-        $this->app['breadcrumbs'] = $breadcrumbs;
+        $breadCrumbs = BreadCrumbCollection::getInstance();
+        $breadCrumbs->addItem('Amazon', 'www.amazon.de');
+        $breadCrumbs->addItem('Something', 'www.isThere.com');
+        $this->app['breadcrumbs'] = $breadCrumbs;
 
         return $this->extension->renderBreadCrumbs();
     }
