@@ -62,9 +62,8 @@ class BreadCrumbExtensionTest extends TestCase
     public function testRenderBreadCrumbs()
     {
         $breadCrumbs = $this->createBreadCrumbs();
-        var_dump($breadCrumbs);
         preg_match_all('/...:::.../', $breadCrumbs, $counted);
-        $this->assertCount(1, current($counted));
+        $this->assertCount(4, current($counted));
         $this->assertRegExp('/<a href="www.amazon.de">Amazon<\/a>/', $breadCrumbs);
     }
 
