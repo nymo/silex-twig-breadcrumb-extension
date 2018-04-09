@@ -35,7 +35,7 @@ First add the following to your composer.json file
     }
 ```
 
-Use Version 1.2 and lower for Silex 1. Version 1 requires PHP 5.5.9 at least. So use Version 1.2 and lower when you're using an older version of PHP.
+Use Version 1.2 and lower for Silex 1 and PHP <= 5.5.9.
 
 #### Silex 1.x
 ```
@@ -54,6 +54,17 @@ $app->register(new \nymo\Silex\Provider\BreadCrumbServiceProvider());
 ```
 Then register the Twig breadcrumb extension. You have to define this after your registered the Twig service provider
 otherwise the application throws an error if you use $app['twig'].
+
+```
+$app['twig'] = $app->extend('twig', function ($twig, $app) {
+    $twig->addExtension(new \nymo\Twig\Extension\BreadCrumbExtension($app));
+
+    return $twig;
+});
+```
+
+
+#### Silex 1.x
 ```
 $app['twig'] = $app->share(
     $app->extend(
@@ -73,11 +84,11 @@ After your successfull installation you can add breadcrumb items wherever you wa
 breadcrumb service and add a item:
 
 ```
-$app['breadcrumbs']->addItem('Silex rocks','http://silex.sensiolabs.org/');
-$app['breadcrumbs']->addItem('PHP','http://www.php.net');
+$app['breadcrumbs']->addItem('Silex rocks', 'http://silex.sensiolabs.org/');
+$app['breadcrumbs']->addItem('PHP', 'http://www.php.net');
 ```
 The last item in your container is always printed as plain text without an <a> tag.
-You can also add an breadcrumb item without any url. Then this breadcrumb item will also be printed as plaint text.
+You can also add an breadcrumb item without any url. Then this breadcrumb item will also be printed as plain text.
 
 ```
 $app['breadcrumbs']->addItem('Just some text');
