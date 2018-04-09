@@ -30,6 +30,6 @@ class BreadCrumbServiceProvider implements ServiceProviderInterface
      */
     public function register(Container $container)
     {
-        $container['breadcrumbs'] = BreadCrumbCollection::getInstance();
+        $container['breadcrumbs'] = new BreadCrumbCollection();
     }
 }

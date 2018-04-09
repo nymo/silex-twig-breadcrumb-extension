@@ -63,7 +63,7 @@ class BreadCrumbExtensionTest extends TestCase
     {
         $breadCrumbs = $this->createBreadCrumbs();
         preg_match_all('/...:::.../', $breadCrumbs, $counted);
-        $this->assertCount(4, current($counted));
+        $this->assertCount(1, current($counted));
         $this->assertRegExp('/<a href="www.amazon.de">Amazon<\/a>/', $breadCrumbs);
     }
 
@@ -78,7 +78,7 @@ class BreadCrumbExtensionTest extends TestCase
      */
     protected function createBreadCrumbs()
     {
-        $breadCrumbs = BreadCrumbCollection::getInstance();
+        $breadCrumbs = new BreadCrumbCollection();
         $breadCrumbs->addItem('Amazon', 'www.amazon.de');
         $breadCrumbs->addItem('Something', 'www.isThere.com');
         $this->app['breadcrumbs'] = $breadCrumbs;

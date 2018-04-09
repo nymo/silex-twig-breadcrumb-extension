@@ -9,6 +9,8 @@
  */
 namespace nymo\Resources\Library;
 
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+
 /**
  * Class BreadCrumbCollection
  * @package nymo\Resources\Library
@@ -16,49 +18,15 @@ namespace nymo\Resources\Library;
  */
 class BreadCrumbCollection
 {
-
-    /**
-     * @var null|BreadCrumbCollection
-     */
-    protected static $bcCollection = null;
-
     /**
      * @var array
      */
     protected $items = [];
 
     /**
-     * @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface $generator
+     * @var UrlGeneratorInterface $generator
      */
     protected $urlGen;
-
-    /**
-     * Singelton
-     */
-    protected function __construct()
-    {
-    }
-
-    /**
-     * Singelton
-     *
-     */
-    protected function __clone()
-    {
-    }
-
-    /**
-     * Create a Singelton collection class
-     * @return BreadCrumbCollection
-     */
-    public static function getInstance()
-    {
-        if (self::$bcCollection === null) {
-            self::$bcCollection = new self();
-        }
-
-        return self::$bcCollection;
-    }
 
     /**
      * Add new breadcrumb item
@@ -87,10 +55,10 @@ class BreadCrumbCollection
     }
 
     /**
-     * @param \Symfony\Component\Routing\Generator\UrlGeneratorInterface $generator
+     * @param UrlGeneratorInterface $generator
      * @return void
      */
-    public function setUrlGenerator(\Symfony\Component\Routing\Generator\UrlGeneratorInterface $generator)
+    public function setUrlGenerator(UrlGeneratorInterface $generator)
     {
         $this->urlGen = $generator;
     }

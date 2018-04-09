@@ -10,6 +10,7 @@
 namespace nymo\Resources\Library;
 
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Routing\Generator\UrlGenerator;
 
 /**
  * Testcases for the BreadCrumbCollection class
@@ -18,24 +19,20 @@ use PHPUnit\Framework\TestCase;
 class BreadCrumbCollectionTest extends TestCase
 {
 
+    /**
+     * @var BreadCrumbCollection
+     */
     protected $breadCrumbColl;
 
     public function setUp()
     {
-        $this->breadCrumbColl = BreadCrumbCollection::getInstance();
-    }
-
-
-    public function testGetInstance()
-    {
-        $breadCrumbColl = BreadCrumbCollection::getInstance();
-        $this->assertInstanceOf(BreadCrumbCollection::class, $breadCrumbColl);
+        $this->breadCrumbColl = new BreadCrumbCollection();
     }
 
     public function testAddItem()
     {
 
-        $generator = $this->createMock('Symfony\Component\Routing\Generator\UrlGenerator');
+        $generator = $this->createMock(UrlGenerator::class);
         $generator->method('generate')->willReturn('www.yahoo.com');
 
         $this->breadCrumbColl->setUrlGenerator($generator);
