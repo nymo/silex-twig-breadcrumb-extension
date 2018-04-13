@@ -137,7 +137,7 @@ In your Twig template you can render your breadcrumbs with this function:
 The default template renders an unordered list. The last item has a css class called lastItem. You can override this
 template. Just copy the breadcrumbs.html.twig template from the vendor folder into your view path.
 
-##i18n Support
+## i18n Support
 Since version 1.1.0 this extension supports i18n. Each linkname has an optional translation filter which is
 only activated if you use the Translation Service Provider. For further information please refer to the
 Silex Documentation.
