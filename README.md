@@ -5,8 +5,7 @@ of breadcrumbs in Silex.
 [![Packagist](https://img.shields.io/packagist/v/nymo/silex-twig-breadcrumb-extension.svg)](https://packagist.org/packages/nymo/silex-twig-breadcrumb-extension)
 [![Monthly Downloads](https://poser.pugx.org/nymo/silex-twig-breadcrumb-extension/d/monthly)](https://packagist.org/packages/nymo/silex-twig-breadcrumb-extension)
 [![Build Status](https://travis-ci.org/nymo/silex-twig-breadcrumb-extension.svg?branch=master)](https://travis-ci.org/nymo/silex-twig-breadcrumb-extension)
-[![Coverage Status](https://coveralls.io/repos/github/nymo/silex-twig-breadcrumb-extension/badge.svg)](https://coveralls.io/github/nymo/silex-twig-breadcrumb-extension)
-
+[![Coverage Status](https://coveralls.io/repos/github/nymo/silex-twig-breadcrumb-extension/badge.svg?branch=master)](https://coveralls.io/github/nymo/silex-twig-breadcrumb-extension?branch=master)
 ## Features
 - Create easily breadcrumbs in your Silex application
 - i18n support
