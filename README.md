@@ -16,7 +16,7 @@ of breadcrumbs in Silex.
 
 ## Requirements
 - Silex 1.x or 2.x
-- PHP 5.3 or 5.5.9 (depends on plugin version see above)
+- PHP 5.3 or 5.6 (depends on plugin version see above)
 - Twig
 - gettext must be activated in your PHP environment for i8n support since version 1.1.0
 
@@ -35,7 +35,7 @@ First add the following to your composer.json file
     }
 ```
 
-Use Version 1.2 and lower for Silex 1 and PHP <= 5.5.9.
+Use Version 1.2 and lower for Silex 1 and PHP <= 5.6.
 
 #### Silex 1.x
 ```
@@ -138,8 +138,9 @@ The default template renders an unordered list. The last item has a css class ca
 template. Just copy the breadcrumbs.html.twig template from the vendor folder into your view path.
 
 ##i18n Support
-Since version 1.1.0 this extension supports i18n. Each linkname uses the Twig trans filter.
-For a detailed documentation about how to use translations in Silex please refer to http://silex.sensiolabs.org/doc/providers/translation.html
+Since version 1.1.0 this extension supports i18n. Each linkname has an optional translation filter which is
+only activated if you use the Translation Service Provider. For further information please refer to the
+Silex Documentation.
 
 ## Optional configuration
 The extension comes with a small configuration option which can be used optional. The default separator used for

@@ -37,16 +37,13 @@ class BreadCrumbExtensionTest extends TestCase
 
     public function setUp()
     {
-        $viewPath = __DIR__.'/../../../../../../src/nymo/Views';
+        $viewPath = __DIR__ . '/../../../../../../src/nymo/Views';
         $this->app = new Container();
         $this->app['charset'] = 'utf-8';
         $this->app['debug'] = false;
         //change default separator
         $this->app['breadcrumbs.separator'] = '...:::...';
         $this->app->register(new LocaleServiceProvider());
-        $this->app->register(new TranslationServiceProvider(), array(
-            'locale_fallbacks' => array('en'),
-        ));
         $this->app->register(new TwigServiceProvider(), array('twig.path' => $viewPath));
 
         $this->app['twig.loader'] = new \Twig_Loader_Chain();
@@ -59,11 +56,36 @@ class BreadCrumbExtensionTest extends TestCase
         $this->assertInstanceOf(\Twig_SimpleFunction::class, $functions['renderBreadCrumbs']);
     }
 
-    public function testRenderBreadCrumbs()
+    /**
+     * Test should render valid breadcrumbs with activated translation service
+     * and translate the link name
+     */
+    public function testRenderBreadCrumbsWithTranslation()
     {
+        $this->activateTransServiceProvider();
+
+        $this->app['translator.domains'] = array(
+            'messages' => array(
+                'en' => array(
+                    'Amazon'     => 'Ebay',
+                ),
+            ),
+        );
+
         $breadCrumbs = $this->createBreadCrumbs();
         preg_match_all('/...:::.../', $breadCrumbs, $counted);
+
         $this->assertCount(1, current($counted));
+        $this->assertRegExp('/<a href="www.amazon.de">Ebay<\/a>/', $breadCrumbs);
+    }
+
+    /**
+     * Test should pass although the translation service is not activated.
+     * This tests if the translation service is optional
+     */
+    public function testRenderWithoutTranslation()
+    {
+        $breadCrumbs = $this->createBreadCrumbs();
         $this->assertRegExp('/<a href="www.amazon.de">Amazon<\/a>/', $breadCrumbs);
     }
 
@@ -84,5 +106,15 @@ class BreadCrumbExtensionTest extends TestCase
         $this->app['breadcrumbs'] = $breadCrumbs;
 
         return $this->extension->renderBreadCrumbs();
+    }
+
+    /**
+     * Activates the translation service provider
+     * @return void
+     */
+    protected function activateTransServiceProvider()
+    {
+        $this->app->register(new TranslationServiceProvider(), array(
+            'locale_fallbacks' => array('en')));
     }
 }
