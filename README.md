@@ -10,7 +10,7 @@ of breadcrumbs in Silex.
 - Support for PHP > 7.1
 - Package is using now PSR-4 autoloader
 - Method *addItem* in BreadCrumbCollection is now deprecated and will be removed in 3.1 use *addSimpleItem* or *addRouteItem* instead
-[see below](#Usage)
+[see below](#usage)
 ## Roadmap
 Since Silex get EOL in June 2018 this Extension will be archived, too. No further features will be implemented.
 **I'm going to migrate the library to Symfony 4 as this is the future road for all Silex applications.**
