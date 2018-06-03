@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * This file is part of silex-twig-breadcrumb-extension
  *
@@ -20,7 +20,7 @@ use Pimple\Container;
 class BreadCrumbServiceProviderTest extends TestCase
 {
 
-    public function testRegister()
+    public function testRegister(): void
     {
         $container = new Container();
         $serviceProvider = new BreadCrumbServiceProvider();

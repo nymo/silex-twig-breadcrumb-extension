@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * This file is part of silex-twig-breadcrumb-extension
  *
@@ -44,9 +44,9 @@ class BreadCrumbExtension extends \Twig_Extension
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             'renderBreadCrumbs' => new \Twig_SimpleFunction(
@@ -61,7 +61,7 @@ class BreadCrumbExtension extends \Twig_Extension
      * Returns the rendered breadcrumb template
      * @return string
      */
-    public function renderBreadCrumbs()
+    public function renderBreadCrumbs(): string
     {
         $translator = isset($this->app['translator']) ? true : false;
 
@@ -76,11 +76,10 @@ class BreadCrumbExtension extends \Twig_Extension
     }
 
     /**
-     * Returns the name of the extension.
-     *
+     * Returns the name of the extension
      * @return string The extension name
      */
-    public function getName()
+    public function getName(): string
     {
         return 'renderBreadCrumbs';
     }

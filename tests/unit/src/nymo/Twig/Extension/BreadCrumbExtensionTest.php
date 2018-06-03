@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * This file is part of silex-twig-breadcrumb-extension
  *
@@ -12,6 +12,7 @@ namespace nymo\Twig\Extension;
 use PHPUnit\Framework\TestCase;
 use nymo\Resources\Library\BreadCrumbCollection;
 use Pimple\Container;
+use Silex\Application;
 use Silex\Provider\LocaleServiceProvider;
 use Silex\Provider\TranslationServiceProvider;
 use Silex\Provider\TwigServiceProvider;
@@ -35,10 +36,15 @@ class BreadCrumbExtensionTest extends TestCase
      */
     protected $app;
 
+    /**
+     * @inheritdoc
+     */
     public function setUp()
     {
         $viewPath = __DIR__ . '/../../../../../../src/nymo/Views';
-        $this->app = new Container();
+        $this->app = $this->getMockBuilder(Application::class)
+                    ->setMethods(null)
+                    ->getMock();
         $this->app['charset'] = 'utf-8';
         $this->app['debug'] = false;
         //change default separator
@@ -50,7 +56,7 @@ class BreadCrumbExtensionTest extends TestCase
         $this->extension = new BreadCrumbExtension($this->app);
     }
 
-    public function testGetFunctions()
+    public function testGetFunctions(): void
     {
         $functions = $this->extension->getFunctions();
         $this->assertInstanceOf(\Twig_SimpleFunction::class, $functions['renderBreadCrumbs']);
@@ -60,7 +66,7 @@ class BreadCrumbExtensionTest extends TestCase
      * Test should render valid breadcrumbs with activated translation service
      * and translate the link name
      */
-    public function testRenderBreadCrumbsWithTranslation()
+    public function testRenderBreadCrumbsWithTranslation(): void
     {
         $this->activateTransServiceProvider();
 
@@ -83,13 +89,13 @@ class BreadCrumbExtensionTest extends TestCase
      * Test should pass although the translation service is not activated.
      * This tests if the translation service is optional
      */
-    public function testRenderWithoutTranslation()
+    public function testRenderWithoutTranslation(): void
     {
         $breadCrumbs = $this->createBreadCrumbs();
         $this->assertRegExp('/<a href="www.amazon.de">Amazon<\/a>/', $breadCrumbs);
     }
 
-    public function testGetName()
+    public function testGetName(): void
     {
         $this->assertEquals('renderBreadCrumbs', $this->extension->getName());
     }
@@ -98,7 +104,7 @@ class BreadCrumbExtensionTest extends TestCase
      * Creates Breadcrumbs, renders them and saves the rendered file to a string
      * @return string
      */
-    protected function createBreadCrumbs()
+    protected function createBreadCrumbs(): string
     {
         $breadCrumbs = new BreadCrumbCollection();
         $breadCrumbs->addItem('Amazon', 'www.amazon.de');
@@ -112,7 +118,7 @@ class BreadCrumbExtensionTest extends TestCase
      * Activates the translation service provider
      * @return void
      */
-    protected function activateTransServiceProvider()
+    protected function activateTransServiceProvider(): void
     {
         $this->app->register(new TranslationServiceProvider(), array(
             'locale_fallbacks' => array('en')));

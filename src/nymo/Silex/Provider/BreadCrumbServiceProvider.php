@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * This file is part of silex-twig-breadcrumb-extension
  *
@@ -28,7 +28,7 @@ class BreadCrumbServiceProvider implements ServiceProviderInterface
      *
      * @param Container $container A Container instance
      */
-    public function register(Container $container)
+    public function register(Container $container): void
     {
         $container['breadcrumbs'] = new BreadCrumbCollection();
     }

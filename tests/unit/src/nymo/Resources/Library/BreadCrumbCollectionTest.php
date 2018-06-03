@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * This file is part of silex-twig-breadcrumb-extension
  *
@@ -29,7 +29,7 @@ class BreadCrumbCollectionTest extends TestCase
         $this->breadCrumbColl = new BreadCrumbCollection();
     }
 
-    public function testAddItem()
+    public function testAddItem(): void
     {
 
         $generator = $this->createMock(UrlGenerator::class);
@@ -52,5 +52,38 @@ class BreadCrumbCollectionTest extends TestCase
         $this->assertNull($breadCrumbs[1]['target']);
         $this->assertEquals('www.yahoo.com', $breadCrumbs[2]['target']);
         $this->assertEquals('www.yahoo.com', $breadCrumbs[3]['target']);
+    }
+
+    public function testAddSimpleItem(): void
+    {
+        $this->breadCrumbColl->addSimpleItem('Google', 'www.google.com');
+        $this->breadCrumbColl->addSimpleItem('Amazon');
+
+        $breadCrumbs = $this->breadCrumbColl->getItems();
+
+        $this->assertCount(2, $breadCrumbs);
+        $this->assertEquals('Google', $breadCrumbs[0]['linkName']);
+        $this->assertEquals('www.google.com', $breadCrumbs[0]['target']);
+        $this->assertEquals('Amazon', $breadCrumbs[1]['linkName']);
+        $this->assertNull($breadCrumbs[1]['target']);
+    }
+
+    public function testAddRouteItem(): void
+    {
+        $generator = $this->createMock(UrlGenerator::class);
+        $generator->method('generate')->willReturn('www.yahoo.com');
+
+        $this->breadCrumbColl->setUrlGenerator($generator);
+
+        $this->breadCrumbColl->addRouteItem('Yahoo', ['route' => 'foo']);
+        $this->breadCrumbColl->addRouteItem('Yahoo', ['params' => 'bar', 'route' => 'foo']);
+
+        $breadCrumbs = $this->breadCrumbColl->getItems();
+
+        $this->assertCount(2, $breadCrumbs);
+        $this->assertEquals('Yahoo', $breadCrumbs[0]['linkName']);
+        $this->assertEquals('www.yahoo.com', $breadCrumbs[0]['target']);
+        $this->assertEquals('Yahoo', $breadCrumbs[1]['linkName']);
+        $this->assertEquals('www.yahoo.com', $breadCrumbs[1]['target']);
     }
 }

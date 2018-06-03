@@ -6,18 +6,37 @@ of breadcrumbs in Silex.
 [![Monthly Downloads](https://poser.pugx.org/nymo/silex-twig-breadcrumb-extension/d/monthly)](https://packagist.org/packages/nymo/silex-twig-breadcrumb-extension)
 [![Build Status](https://travis-ci.org/nymo/silex-twig-breadcrumb-extension.svg?branch=master)](https://travis-ci.org/nymo/silex-twig-breadcrumb-extension)
 [![Coverage Status](https://coveralls.io/repos/github/nymo/silex-twig-breadcrumb-extension/badge.svg?branch=master)](https://coveralls.io/github/nymo/silex-twig-breadcrumb-extension?branch=master)
-## Features
+## New in Version 3.0
+- Support for PHP > 7.1
+- Package is using now PSR-4 autoloader
+- Method *addItem* in BreadCrumbCollection is now deprecated and will be removed in 3.1 use *addSimpleItem* or *addRouteItem* instead
+[see below](#Usage)
+## Roadmap
+Since Silex get EOL in June 2018 this Extension will be archived, too. No further features will be implemented.
+**I'm going to migrate the library to Symfony 4 as this is the future road for all Silex applications.**
+
+## General Features
 - Create easily breadcrumbs in your Silex application
 - i18n support
 - Configurable separator
 - Template override
 - Named route support
 
-## Requirements
-- Silex 1.x or 2.x
-- PHP 5.3 or 5.6 (depends on plugin version see above)
+## General Requirements
 - Twig
-- gettext must be activated in your PHP environment for i8n support since version 1.1.0
+- gettext must be activated in your PHP environment for i8n support since version 1.1.0 
+
+### For PHP 5.3
+- Silex 1.x
+- silex-twig-breadcrumb-extension in Version 1.x
+
+### For PHP 5.6
+- Silex 2.x
+- silex-twig-breadcrumb-extension in Version 2.x
+
+### For PHP > 7.1
+- Silex 2.x
+- silex-twig-breadcrumb-extension in Version 3.x
 
 
 ## Installation
@@ -30,11 +49,11 @@ to the official PHP Manual http://www.php.net
 First add the following to your composer.json file
 ```
 "require":{
-        "nymo/silex-twig-breadcrumb-extension":"~2.0"
+        "nymo/silex-twig-breadcrumb-extension":"~3.0"
     }
 ```
 
-Use Version 1.2 and lower for Silex 1 and PHP <= 5.6.
+Use Version 2.x for Silex 2 with PHP <= 5.6.
 
 #### Silex 1.x
 ```
@@ -82,6 +101,19 @@ That's all. Now you ready to go.
 After your successfull installation you can add breadcrumb items wherever you want. All you need is to call the
 breadcrumb service and add a item:
 
+### New style
+```
+$app['breadcrumbs']->addSimpleItem('Silex rocks', 'http://silex.sensiolabs.org/');
+$app['breadcrumbs']->addSimpleItem('PHP', 'http://www.php.net');
+```
+The last item in your container is always printed as plain text without an <a> tag.
+You can also add an breadcrumb item without any url. Then this breadcrumb item will also be printed as plain text.
+
+```
+$app['breadcrumbs']->addSimpleItem('Just some text');
+```
+### Old style deprecated
+
 ```
 $app['breadcrumbs']->addItem('Silex rocks', 'http://silex.sensiolabs.org/');
 $app['breadcrumbs']->addItem('PHP', 'http://www.php.net');
@@ -109,14 +141,28 @@ Now you're ready to go.
 
 #### Simple named route
 If you got a simple route without any required parameters you can add this route to the breadcrumb collection as follows:
-
+### New style
+```
+$app['breadcrumbs']->addRouteItem('A simple route', ['route' => 'simple_named_route']);
+```
+### Old style deprecated
 ```
 $app['breadcrumbs']->addItem('A simple route',array('route' => 'simple_named_route'));
 ```
 #### Complex named route
 A complex named route is being added the same way as a simple named route. What needs to be done additionally is to pass
 an array with the required parameters as a second value to the array.
-
+### New style
+```
+$app['breadcrumbs']->addRouteItem('A complex route', [
+        'route' => 'complex_named_route',
+        'params' => [
+            'name' => "John",
+            'id' => 3
+        ]
+    ]);
+```
+### Old style deprecated
 ```
 $app['breadcrumbs']->addItem('A complex route',array(
         'route' => 'complex_named_route',
